@@ -19,9 +19,9 @@ The data collected for this project comes from the Reddit PRAW API.  Due to ethi
 -	Evaluate results
 #### Results and Discussion
 By far the biggest speed increases from using large scale computing methods (PySpark NLP on AWS EMR clusters) was the vast improvement in the speed at which the data was tokenized and normalized.  From experience serial coding this data, it took around 4 hours to tokenize, normalize and do part of speech tagging on the data. Using PySpark NLP’s pipeline, the processing time was only a few seconds.  When adding the Word2Vec vectorization, the entire process only took 20 minutes. This pipeline followed the logic like this. Firstly, I assemble the text as a document, then I tokenize.  I normalize and remove stop words and then get the part of speech tags (used in another project).  I also had to incorporate a finisher to clean up the tokens before feeding it into the Word2Vec. 
-![Alt text](Picture1.jpg)
-![Alt text](Picture1.jpg)
 
+![Alt text](Picture1.png)
+![Alt text](Picture1.png)
 
 After completing this normalization pipeline, I also wanted to create a pipeline to cross validate two different  classifiers. First, I had to aggregate the data by user to create a sort of “post history.” Then I removed users who did not have much to say (i.e. they had fewer than 15 normalized tokens). I also removed those who were not labeled in the first place. Thereafter, I started the classifier pipeline.  For the sake an example, I chose to do a logistic regression and a random forest.  After using 5-fold cross validation on the ROC value, I found that logistic regression performs slightly better (.91 vs .89.5). with these test set. To run both of these cross validations it took a total of 54 minutes. Additionally, I plotted the confusion matrix and the ROC-AUC curve.
 
